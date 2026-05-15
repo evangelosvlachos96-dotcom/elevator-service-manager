@@ -1,0 +1,12 @@
+{% load static %}
+<ul class="menu-bar" style="display: flex;
+justify-content: center;
+text-decoration:none;
+color:white;
+margin-left:25%;
+margin-right:25%;">
+	<li><a href="{% url 'add_client' %}">Add Client</a></li>
+	<li><a href="{% url 'add_member' %}">Add Member</a></li>
+	<li><a href="">Search</a></li>
+	<li><a href="{% url 'logout' %}">Logout</a></li>
+</ul>

@@ -1,0 +1,438 @@
+{% extends 'base.html' %}
+
+{% block bootstrap %}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+{% endblock bootstrap %}
+
+{% block content %}
+<div class="fadee"></div>
+
+    {% include 'navbar.html' %}
+    <br>
+    {% include 'status.html' %}
+    {% include 'modals.html' %}
+    
+
+    <div class="row" style="margin-left:2%;
+    margin-right:2%">
+    <div class="col-md-6 p-3"  >
+        <h5 class="text-center" style="color:white;">COMPANY'S STUFF</h5>
+        <hr>
+        <div class="card card-body" id="regular-card">
+            
+            <table class="table table-sm shie" >
+                <tr class="text-center " >
+                    
+                    <th style="font-weight: bold;">ID</th>
+                    <th style="font-weight: bold;">Name</th>
+                    <th style="font-weight: bold;">Surname</th>
+                    <th style="font-weight: bold;">Usename</th>
+                    <th style="font-weight: bold;">Email</th>
+                    <th style="font-weight: bold;">Telephone</th>
+                    <th style="font-weight: bold;">Adress</th>
+                    <th style="font-weight: bold;">Delete</th>
+                </tr>
+
+                {% for stuff in stuffs %}
+                    <tr class="text-center">
+                        <td>{{stuff.id}}</td>
+                        <td>{{stuff.name}}</td>
+                        <td>{{stuff.surname}}</td>
+                        <td>{{stuff.username}}</td>
+                        <td>{{stuff.email}}</td>
+                        <td>{{stuff.phone_number}}</td>
+                        <td>{{stuff.address}}</td>
+                        <td><a class="btn btn-sm btn-danger font-weight-bold" style="width:50px;" id="secretbtn" href="{% url 'delete_stuff' stuff.id%}">X</a></td>
+                    </tr>
+                    
+                    
+                    
+                {% endfor %}
+                <tr class="text-center"><td colspan="1000" style="border-color: #7cd1c0;"><a class="btn btn-primary btn-sm" href="{% url 'add_member' %}">Add Member</a></td></tr>   
+            </table>
+        </div>
+        
+    </div>
+
+
+      <div class="col-md-6 p-3">
+        
+        <h5 class="text-center" style="color:white;">SCHEDULE</h5>
+        <hr>
+        <div class="card card-body" id="regular-card">
+          
+            
+            <table class="table table-sm">
+                <tr class="text-center">
+                    <th style="font-weight: bold;">Monday</th>
+                    <th style="font-weight: bold;">Tuesday</th>
+                    <th style="font-weight: bold;">Wednesday</th>
+                    <th style="font-weight: bold;">Thrusday</th>
+                    <th style="font-weight: bold;">Friday</th>
+                    <th style="font-weight: bold;">Saturday</th>
+                    <th style="font-weight: bold;">Sanday</th>
+                </tr>
+                <form action="" method="POST" style="text-align: center; padding: 0;">
+                  {% csrf_token %}
+                  <tr class="text-center">
+                    <td>
+                      <select name="mon" id="day1" onchange="run();" style="background-color:#52cca4ed; border-radius: 3px; width:100px;">
+                          {% for s in stuffs %}
+                          <option  {% if  s|stringformat:"s" == current_week.mon|stringformat:"s" %}selected{% endif %} value="{{s}}">{{s}}</option>
+                          {% endfor %}
+                      </select>
+                    </td>
+                    <td>
+                        <select name="tue" id="day2" onchange="run();" style="background-color:#52cca4ed; border-radius: 3px; width:100px;">
+                          {% for s in stuffs %}
+                          <option  {% if  s|stringformat:"s" == current_week.tue|stringformat:"s" %}selected{% endif %} value="{{s}}">{{s}}</option>
+                          {% endfor %}
+                      </select>
+                    </td>
+                    <td>
+                      <select name="wed" id="day3" onchange="run();" style="background-color:#52cca4ed; border-radius: 3px; width:100px;">
+                          {% for s in stuffs %}
+                          <option  {% if  s|stringformat:"s" == current_week.wed|stringformat:"s" %}selected{% endif %} value="{{s}}">{{s}}</option>
+                          {% endfor %}
+                      </select>
+                    </td>
+                    <td>
+                      <select name="thu"  id="day4" onchange="run();" style="background-color:#52cca4ed; border-radius: 3px; width:100px;">
+                        {% for s in stuffs %}
+                        <option  {% if  s|stringformat:"s" == current_week.thu|stringformat:"s" %}selected{% endif %} value="{{s}}">{{s}}</option>
+                        {% endfor %}
+                      </select>
+                    </td>
+                    <td>
+                      <select name="fri" id="day5" onchange="run();" style="background-color:#52cca4ed; border-radius: 3px; width:100px;">
+                        {% for s in stuffs %}
+                        <option  {% if  s|stringformat:"s" == current_week.fri|stringformat:"s" %}selected{% endif %} value="{{s}}">{{s}}</option>
+                        {% endfor %}
+                      </select>
+                    </td>
+                    <td>
+                      <select name="sat" id="day6" onchange="run();" style="background-color:#52cca4ed; border-radius: 3px; width:100px;">
+                        {% for s in stuffs %}
+                        <option  {% if  s|stringformat:"s" == current_week.sat|stringformat:"s" %}selected{% endif %} value="{{s}}">{{s}}</option>
+                        {% endfor %}
+                      </select>
+                    </td>
+                    <td>
+                      <select name="sun" id="day7" onchange="run();" style="background-color:#52cca4ed; border-radius: 3px; width:100px;">
+                        {% for s in stuffs %}
+                        <option  {% if  s|stringformat:"s" == current_week.sun|stringformat:"s" %}selected{% endif %} value="{{s}}">{{s}}</option>
+                        {% endfor %}
+                      </select>
+                    </td>
+                    
+                   </tr>
+                   <tr>
+                      <td colspan="100" class="text-center" style="border-color: #7cd1c0;">
+                        <button class="shieesd btn btn-sm btn-primary" style="width:105px; margin-top: 50px;" id="asdf" type="submit" >Save changes</button>
+                      </td>
+                    </tr>
+
+                
+                
+                
+        
+              </table>
+            </div>
+              <div class="card card-body text-center" id="regular-card"><h3 class=" font-weight-bold">Today's shift: <input type="text" name="shift" value="{{current_week.todays_shift}}" readonly="readonly" id="srt" style="background-color: #7cd1c0;
+                  width:150px; height:38px; border: none;"></input></h3></div>
+                 
+          </form>
+        </div>
+      </div>
+    
+    
+        <div class="col-md-12 p-3 " >
+            <h5 class="text-center" style="color:white;">CLIENTS</h5>
+            <hr >
+            <div class="card card-body" id="regular-card">
+                
+                <table class="table table-sm"  id="color" >
+                    <tr class="text-center " >
+                        
+                        <th style="font-weight: bold;">ID</th>
+                        <th style="font-weight: bold;">Name</th>
+                        <th style="font-weight: bold;">Surname</th>
+                        <th style="font-weight: bold;">Email</th>
+                        <th style="font-weight: bold;">Telephone</th>
+                        <th style="font-weight: bold;">Adress</th>
+                        <th style="font-weight: bold;">Region</th>
+                        <th style="font-weight: bold;">Add Elevator</th>
+                        <th style="font-weight: bold;">Update</th>
+                        <th style="font-weight: bold;">Delete</th>
+                    </tr>
+    
+                    {% for client in clientss %}
+                        <tr class="text-center">
+                            <td>{{client.id}}</td>
+                            <td>{{client.name}}</td>
+                            <td>{{client.surname}}</td>
+                            <td>{{client.email}}</td>
+                            <td>{{client.phone_number}}</td>
+                            <td>{{client.address}}</td>
+                            <td>{{client.region}}</td>
+                            <td><a class="btn btn-sm btn-primary font-weight-bold" style="width:50px;" id="secretbtn"href="{% url 'add_elevator' client.id%}" >+</a></td>
+                            <td><a class="btn btn-sm btn-info font-weight-bold" style="width:50px;" id="secretbtn" href="{% url 'update_client' client.id %}">!</a></td>
+                            <td><a class="btn btn-sm btn-danger font-weight-bold" style="width:50px;" id="secretbtn" href="{% url 'delete_client' client.id%}">X</a></td>
+                    
+                            </td>
+    
+                            
+                        </tr>
+                        
+                        
+                        
+                    {% endfor %}
+                    <tr class="text-center"><td colspan="1000" style="border-color: #7cd1c0;"><a class="btn btn-primary btn-sm" href="{% url 'add_client' %}">Creat Client</a></td></tr>
+                        
+                </table>
+            </div>
+        </div>
+
+        <br>
+        <div class="col-md-12 p-3" >
+            <h5 class="text-center" style="color:white;">ELEVATORS</h5>
+            <hr>
+            <div class="card card-body" id="regular-card">
+                
+                <table class="table table-sm" >
+                    <tr class="text-center">
+                        <th style="font-weight: bold;">ID</th>
+                        <th style="font-weight: bold;">Book Code</th>
+                        <th style="font-weight: bold;">Owner</th>
+                        <th style="font-weight: bold;">Watt</th>
+                        <th style="font-weight: bold;">Stations</th>
+                        <th style="font-weight: bold;">Type</th>
+                        <th style="font-weight: bold;">Moter/Cauldron</th>
+                        <th style="font-weight: bold;">Panel</th>
+                        <th style="font-weight: bold;">Whire Ropes</th>
+                        <th style="font-weight: bold;">Chassi</th>
+                        <th style="font-weight: bold;">Last KTEO</th>
+                        <th style="font-weight: bold;">Comment</th>
+                        <th style="font-weight: bold;">Make Service</th>
+                        <th style="font-weight: bold;">Update</th>
+                        <th style="font-weight: bold;">Delete</th>
+    
+                    {% for elevator in elevators %}
+                        <tr class="text-center">
+                            <td>{{elevator.id}}</td>
+                            <td>{{elevator.book_code}}</td>
+                            <td>{{elevator.client_id}}</td>
+                            <td>{{elevator.watt}}</td>
+                            <td>{{elevator.station}}</td>
+                            <td>{{elevator.elevator_type}}</td>
+                            <td>{{elevator.moter_cauldron}}</td>
+                            <td>{{elevator.control_panel}}</td>
+                            <td>{{elevator.wire_ropes}}</td>
+                            <td>{{elevator.chassi}}</td>
+                            <td>{{elevator.last_kteo}}</td>
+                            <td>{{elevator.comment}}</td>
+                            <td><a class="btn btn-sm btn-primary font-weight-bold" style="width:50px;" id="secretbtn"href="{% url 'make_service' elevator.id %}" >+</a></td>
+                            <td><a class="btn btn-sm btn-info font-weight-bold" style="width:50px;" id="secretbtn"href="{% url 'update_elevator' elevator.id %}" >!</a></td>
+                            <td><a class="btn btn-sm btn-danger font-weight-bold" style="width:50px;" id="secretbtn" href="{% url 'delete_elevator' elevator.id %}">X</a></td>
+    
+                        </tr>
+                    {% endfor %}
+                    
+                
+                
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-12 p-3">
+            <h5 class="text-center" style="color:white;">LATEST SERVICES</h5>
+            <hr>
+            <div class="card card-body" id="regular-card">
+                
+                <table class="table table-sm">
+                    <tr class="text-center">
+                        <th style="font-weight: bold;">Invoice Code</th>
+                        <th style="font-weight: bold;">Stuff</th>
+                        <th style="font-weight: bold;">Elevator ID</th>
+                        <th style="font-weight: bold;">Service Date</th>
+                        <th style="font-weight: bold;">Cost</th>
+                        <th style="font-weight: bold;">Invoice Publish</th>
+                        <th style="font-weight: bold;">Invoice Pay</th>
+                        <th style="font-weight: bold;">Comment</th>
+                        <th style="font-weight: bold;">Update</th>
+                        <th style="font-weight: bold;">Delete</th>
+                    </tr>
+    
+                    {% for service in services %}
+                        <tr class="text-center">
+                            <td>{{service.recipe_code}}</td>
+                            <td>{{service.stuff_id}}</td>
+                            <td>{{service.elevator_id}}</td>
+                            <td>{{service.date}}</td>
+                            <td>{{service.cost}}</td>
+                            <td>{{service.date_ekd}}</td>
+                            <td>{{service.date_ejof}}</td>
+                            <td>{{service.comment}}</td>
+                            <td><a  class="btn btn-sm btn-info font-weight-bold" style="width:50px;" id="secretbtn" href="{% url 'update_service' service.id%}" >!</a></td>
+                            <td><a class="btn btn-sm btn-danger font-weight-bold" style="width:50px;" id="secretbtn" href="{% url 'delete_service' service.id%}">X</a></td>
+    
+                        </tr>
+                    {% endfor %}
+                    <tr class="text-center"><td colspan="1000" style="border-color: #7cd1c0;"><a class="btn btn-primary btn-sm" href="">Service History</a></td></tr>
+            
+                </table>
+            </div>
+        </div>
+
+       
+    
+    
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Style for modals -->
+    <style>
+        .modal a {
+      text-align: center;
+    }
+    .modal {
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      border-radius: 10px;
+      position: fixed;
+      left: 35%;
+      top: 5%;
+      transition: 0.5 ease-in;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      z-index: -2;
+      width: 500px;
+      height: 300px;
+    }
+    .modal button {
+      border: 1px solid rgb(77, 192, 77);
+      border-radius: 5px;
+      width: 137px;
+      height: 73px;
+    }
+    
+    #title {
+      background-color: white;
+      border: 1px solid rgb(212, 209, 209);
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      height: 80px;
+    }
+    #body {
+      background-color: white;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      height: 133px;
+    }
+    #footer {
+      background-color: white;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      height: 300px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .visible {
+      animation: move 1s forwards;
+      z-index: 5;
+    }
+    .not-visible {
+      opacity: 0;
+    }
+    .fadearea {
+        margin-top:-100px;
+      position: absolute;
+      background-color: rgba(37, 35, 35, 0.746);
+      width: 200%;
+      height: 200%;
+      z-index: 4;
+    }
+    .back {
+      font-size: 16px;
+      color: #53e3a6;
+      height: 43px;
+      padding: 0;
+      margin: 0;
+      margin-right: 23px;
+      margin-bottom: -74px;
+    }
+    .backno:hover {
+      background-color: rgb(240, 4, 4);
+      border-color: rgb(240, 4, 4);
+      color: white;
+    }
+    .backyes:hover {
+      background-color: rgb(77, 192, 77);
+      color: white;
+    }
+    @keyframes move {
+      0% {
+        background-color: blue;
+        opacity: 0;
+        top: 10%;
+      }
+      100% {
+        opacity: 1;
+        top: 15%;
+        background-color: red;
+      }
+    }
+    
+    </style>
+    <!-- Javascript for modals -->
+    <script>
+        
+        var modal1 = document.querySelector('.modal');
+
+        var fade = document.querySelector('.fadee');
+
+
+        document.querySelectorAll('#baton').forEach(item => {
+            item.addEventListener('click', function(){
+                modal1.classList.add("visible");
+                fade.classList.add("fadearea");
+                })
+            
+        })
+
+        document.querySelectorAll('.back').forEach(item => {
+            item.addEventListener('click', function(){
+                modal1.classList.remove("visible");
+                fade.classList.remove("fadearea");
+                })
+            
+        })
+
+
+
+    </script>
+
+{% endblock %}

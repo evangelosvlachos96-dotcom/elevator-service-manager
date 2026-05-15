@@ -1,0 +1,25 @@
+{% extends 'company.html' %}
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<br>
+<div class="row" style="padding-bottom: 100%;">
+	<div class="col-md-3 " style="left:37.5%;">
+		<div class="card card-body text-center" id="regular-card">
+
+
+			<p class="text-center h4 text-white">Are you sure you want to delete {% block delete01 %}{% endblock %}{% block delete02 %}{% endblock %}{% block delete03 %}{% endblock %}{% block delete04 %}{% endblock %} {{item}} ?</p>
+
+			<form  method="POST" class="d-flex flex-column text-center">
+				
+				{% csrf_token %}
+				<input class="btn btn-danger" type="submit" name="Confirm" value="Delete">
+				<a class="btn btn-warning " style="width:250px; margin: 0 auto 10px auto; color:white;" href="{% url 'company' %}">Cancel</a>
+
+		
+				</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

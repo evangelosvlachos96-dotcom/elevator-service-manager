@@ -1,0 +1,5 @@
+Django==3.1.5
+django-filter==2.4.0
+stripe==2.55.0
+python-decouple==3.4
+Pillow==8.1.0

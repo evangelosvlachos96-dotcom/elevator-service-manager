@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<div class="wrapper" >
+    <h2>Elevator Web App</h2>
+    <div class="container">
+        <h1><span class="entypo-login"><i class="fa fa-sign-in"></i>  Welcome</span></h1>
+        
+        <form method="POST" class="form" action="">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
+            {% if messages %}
+            {% for message in messages %}
+            <div id="erorrr">
+              {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}	
+            <button type="submit" id="login-button">Login</button>
+        </form>
+    </div>
+    
+    <ul class="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+
+
+
+{% endblock %}

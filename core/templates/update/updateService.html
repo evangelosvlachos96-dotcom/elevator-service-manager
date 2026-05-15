@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<form action="" method="POST" style="text-align: center; padding-top:50px; height: 90vh;">
+    {% csrf_token %}
+    <h1 style="padding-bottom:20px ;">Updating service with code "{{servic}}" </h1>
+    {{form.as_p}}
+    <a style="color:rgb(255, 1, 1);">{{form.errors}}</a>
+    <button style="margin-top:46px;" type="submit" id="login-button">Update</button>
+    <a id="cancel-button" href="{% url 'company' %}">Go back</a>
+</form>
+
+
+{% endblock %}
